@@ -20,9 +20,22 @@ export default createStore({
     addNewInput(state: IState, { names, type }) {
       state.mainFormInputs.push({
         id: state.mainFormInputs.length + 1,
-        names,
+        names: names.map((item: { value: string; locale: string }) => {
+          const { value, locale } = item;
+
+          return {
+            value,
+            locale,
+          };
+        }),
         type,
       });
+    },
+    deleteInput(state: IState, { id }) {
+      const input = state.mainFormInputs.find((item) => item.id === id);
+      state.mainFormInputs = state.mainFormInputs.filter(
+        (value) => value !== input
+      );
     },
   },
   actions: {},

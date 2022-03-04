@@ -10,7 +10,6 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "Button",
   props: {
     type: {
       type: String,

@@ -3,8 +3,8 @@ export const messages = {
     message: {
       first: "First input",
       second: "Second input",
-      newInputName: "Name of new input element",
-      newInputType: "New input type",
+      newInputName: "Name of input element",
+      newInputType: "Type",
       addLabel: "Add",
       submitForm: "Submit",
       settingsLabel: "Settings",
@@ -13,6 +13,7 @@ export const messages = {
       changeLocaleLabel: "Change locale",
       inputPlaceholder: "Type a value",
       inputNameForLocale: "Input name for locale: ",
+      deleteInputLabel: "Delete",
       inputTypes: {
         text: "Text",
         number: "Number",
@@ -23,7 +24,7 @@ export const messages = {
     message: {
       first: "Первый элемент формы",
       second: "Второй элемент формы",
-      newInputName: "Имя нового поля ввода",
+      newInputName: "Имя поля ввода",
       newInputType: "Тип данных:",
       addLabel: "Добавить",
       submitForm: "Отправить",
@@ -33,6 +34,7 @@ export const messages = {
       changeLocaleLabel: "Сменить язык",
       inputPlaceholder: "Введите значение",
       inputNameForLocale: "Имя поля ввода для языка: ",
+      deleteInputLabel: "Удалить",
       inputTypes: {
         text: "Текст",
         number: "Числовой",

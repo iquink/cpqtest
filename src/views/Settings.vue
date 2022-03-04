@@ -19,7 +19,6 @@ import PageWrapper from "../components/PageWrapper.vue";
 import Form from "../components/Form.vue";
 
 export default defineComponent({
-  name: "Settings",
   components: {
     LocaleChanger,
     PageWrapper,

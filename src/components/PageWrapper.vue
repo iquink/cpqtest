@@ -10,9 +10,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-export default defineComponent({
-  name: "PageWrapper",
-});
+export default defineComponent({});
 </script>
 
 <style lang="scss">

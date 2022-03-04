@@ -23,7 +23,6 @@ import PageWrapper from "../components/PageWrapper.vue";
 import Input from "../components/Input.vue";
 
 export default defineComponent({
-  name: "MainForm",
   components: {
     Form,
     PageWrapper,

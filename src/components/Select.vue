@@ -5,7 +5,7 @@
     </span>
     <select
       class="select"
-      :v-model="modelValue"
+      :value="modelValue"
       @change="$emit('update:modelValue', $event.target.value)"
     >
       <option v-for="item in options" :key="item.value" :value="item.value">
@@ -20,7 +20,6 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   emits: ["update:modelValue"],
-  name: "Select",
   props: {
     options: {
       type: Array,

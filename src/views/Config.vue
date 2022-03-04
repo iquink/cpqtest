@@ -4,28 +4,20 @@
       {{ $t("message.configLabel") }}
     </template>
     <template v-slot:page>
-      <Form>
-        <ul v-for="item in mainFormInputs" :key="item.id">
-          <li>
-            {{
-              item.names.find((name) => name.locale === $i18n.locale).value
-            }}
-            --
-            {{ $t(`message.inputTypes.${item.type}`) }}
-          </li>
-        </ul>
-        <Select v-model="newInputModel.type" :options="selectTypeOptions">{{
+      <Form @submit="addNewInput">
+        <Select v-model="newInput.type" :options="selectTypeOptions">{{
           $t("message.newInputType")
         }}</Select>
-        <template v-for="item in newInputModel.names" :key="item.locale">
-          <Input v-model="item.value" :placeholder="'test'">
-            {{ $t("message.inputNameForLocale") }} {{ item.locale }}
+        <template v-for="name in newInput.names" :key="name.id">
+          <Input v-model="name.value" :placeholder="'test'">
+            {{ $t("message.inputNameForLocale") }} {{ name.locale }}
           </Input>
         </template>
-        <Button @click="addNewInput">
+        <Button type="submut">
           {{ $t("message.addLabel") }}
         </Button>
       </Form>
+      <AddedInputs v-if="mainFormInputs.length" :addedInputs="mainFormInputs" />
     </template>
   </PageWrapper>
 </template>
@@ -38,16 +30,28 @@ import Select from "../components/Select.vue";
 import Button from "../components/Button.vue";
 import Form from "../components/Form.vue";
 import PageWrapper from "../components/PageWrapper.vue";
+import AddedInputs from "../components/AddedInputs.vue";
 import { useI18n } from "vue-i18n";
 
+interface IInputName {
+  value: string;
+  locale: string;
+  id: number;
+}
+
+interface INewInput {
+  names: IInputName[];
+  type: string;
+}
+
 export default defineComponent({
-  name: "Config",
   components: {
     Input,
     Select,
     PageWrapper,
     Button,
-    Form
+    Form,
+    AddedInputs,
   },
   setup() {
     const { t, availableLocales } = useI18n({
@@ -65,13 +69,14 @@ export default defineComponent({
       },
     ];
 
-    const names = availableLocales.map((item) => ({
-      value: "",
-      locale: item,
-    }));
-
-    const newInputModel = reactive({
-      names,
+    const newInput: INewInput = reactive({
+      names: availableLocales.map(
+        (item, i): IInputName => ({
+          value: "",
+          locale: item,
+          id: i + 1,
+        })
+      ),
       type: "text",
     });
 
@@ -80,12 +85,15 @@ export default defineComponent({
     const mainFormInputs = computed(() => store.state.mainFormInputs);
 
     const addNewInput = () => {
-      store.commit("addNewInput", newInputModel);
+      store.commit("addNewInput", newInput);
+
+      newInput.names.forEach((item) => (item.value = ""));
+      newInput.type = "text";
     };
 
     return {
       mainFormInputs,
-      newInputModel,
+      newInput,
       addNewInput,
       selectTypeOptions,
     };
