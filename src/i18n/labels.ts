@@ -14,6 +14,8 @@ export const messages = {
       inputPlaceholder: "Type a value",
       inputNameForLocale: "Input name for locale: ",
       deleteInputLabel: "Delete",
+      emptyInputListLabel: "There's nothing here.",
+      goToConfigLabel: "Open config page to add new form inputs",
       inputTypes: {
         text: "Text",
         number: "Number",
@@ -35,6 +37,8 @@ export const messages = {
       inputPlaceholder: "Введите значение",
       inputNameForLocale: "Имя поля ввода для языка: ",
       deleteInputLabel: "Удалить",
+      emptyInputListLabel: "Здесь ничего нет.",
+      goToConfigLabel: "Открыть конфигуратор, чтобы добавить новые поля ввода",
       inputTypes: {
         text: "Текст",
         number: "Числовой",

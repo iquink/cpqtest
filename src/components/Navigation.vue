@@ -1,12 +1,12 @@
 <template>
   <div class="nav">
+    <router-link class="nav-item" to="/">
+      <span>{{ $t("message.mainFormLabel") }}</span>
+    </router-link>
     <router-link class="nav-item" to="/settings">
       <span>
         {{ $t("message.settingsLabel") }}
       </span>
-    </router-link>
-    <router-link class="nav-item" to="/">
-      <span>{{ $t("message.mainFormLabel") }}</span>
     </router-link>
     <router-link class="nav-item" to="/config">
       <span>{{ $t("message.configLabel") }}</span>

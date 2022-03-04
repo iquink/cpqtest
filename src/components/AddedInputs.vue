@@ -59,6 +59,7 @@ export default defineComponent({
       all: unset;
       background-color: transparent;
       color: $color-blue-1;
+      cursor: pointer;
 
       &:hover {
         text-decoration: underline;
