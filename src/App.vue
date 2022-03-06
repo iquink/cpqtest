@@ -9,7 +9,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch } from "vue";
+import { defineComponent, onMounted, watch } from "vue";
+import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
 import Header from "./components/Header.vue";
@@ -21,11 +22,28 @@ export default defineComponent({
     Navigation,
   },
   setup() {
+    const store = useStore();
+    const sendOfflineData = () => {
+      let storageData: [] = [];
+      try {
+        storageData = JSON.parse(localStorage.cpqData);
+      } catch {
+        console.log("Localstorage error: data is not JSON!");
+      }
+
+      if (
+        store.state.networkStatus === "online" &&
+        Array.isArray(storageData)
+      ) {
+        storageData.forEach((item) => {
+          store.dispatch("saveData", item);
+        });
+      }
+    };
     const { t } = useI18n({
       useScope: "global",
     });
     const route = useRoute();
-
     const getPageHeader = () => {
       switch (route.name) {
         case "Settings":
@@ -45,6 +63,20 @@ export default defineComponent({
         pageHeader = getPageHeader();
       }
     );
+
+    watch(
+      () => store.state.networkStatus,
+      (value) => {
+        if (value === "online") {
+          sendOfflineData();
+        }
+      }
+    );
+
+    onMounted(() => {
+      store.commit("initOnlineStatus");
+      sendOfflineData();
+    });
 
     return { pageHeader };
   },

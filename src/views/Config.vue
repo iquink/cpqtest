@@ -6,11 +6,11 @@
     <template v-slot:page>
       <Form @submit="addNewInput">
         <Select v-model="newInput.type" :options="selectTypeOptions">{{
-          $t("message.newInputType")
+          $t("message.inputTypeLabel")
         }}</Select>
         <template v-for="name in newInput.names" :key="name.id">
-          <Input v-model="name.value" :placeholder="'test'">
-            {{ $t("message.inputNameForLocale") }} {{ name.locale }}
+          <Input v-model="name.value" :placeholder="placeholder">
+            {{ $t("message.inputNameLabelForLocaleLabel") }} {{ name.locale }}
           </Input>
         </template>
         <Button type="submut">
@@ -61,13 +61,15 @@ export default defineComponent({
     const selectTypeOptions = [
       {
         value: "text",
-        label: t("message.inputTypes.text"),
+        label: t("message.inputTypeLabels.text"),
       },
       {
         value: "number",
-        label: t("message.inputTypes.number"),
+        label: t("message.inputTypeLabels.number"),
       },
     ];
+
+    const placeholder = t("message.inputPlaceholderLabel");
 
     const newInput: INewInput = reactive({
       names: availableLocales.map(
@@ -84,7 +86,9 @@ export default defineComponent({
 
     const mainFormInputs = computed(() => store.state.mainFormInputs);
 
-    const addNewInput = () => {
+    const addNewInput = (e: Event) => {
+      e.preventDefault();
+
       store.commit("addNewInput", newInput);
 
       newInput.names.forEach((item) => (item.value = ""));
@@ -96,6 +100,7 @@ export default defineComponent({
       newInput,
       addNewInput,
       selectTypeOptions,
+      placeholder,
     };
   },
 });

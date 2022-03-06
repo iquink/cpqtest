@@ -1,22 +1,24 @@
 export const messages = {
   en: {
     message: {
-      first: "First input",
-      second: "Second input",
-      newInputName: "Name of input element",
-      newInputType: "Type",
+      inputNameLabel: "Name",
+      inputTypeLabel: "Type",
+      inputValueLabel: "Value",
       addLabel: "Add",
-      submitForm: "Submit",
+      submitFormLabel: "Submit",
       settingsLabel: "Settings",
       mainFormLabel: "Data sending form",
       configLabel: "Configuration",
+      calculationLabel: "Calculation",
       changeLocaleLabel: "Change locale",
-      inputPlaceholder: "Type a value",
-      inputNameForLocale: "Input name for locale: ",
+      inputPlaceholderLabel: "Type a value",
+      inputNameLabelForLocaleLabel: "Input name for locale: ",
       deleteInputLabel: "Delete",
       emptyInputListLabel: "There's nothing here.",
       goToConfigLabel: "Open config page to add new form inputs",
-      inputTypes: {
+      isOfflineDataAlertLabel:
+        "You are offline. You can continue working with site. All data will be sent when the network is available",
+      inputTypeLabels: {
         text: "Text",
         number: "Number",
       },
@@ -24,22 +26,24 @@ export const messages = {
   },
   ru: {
     message: {
-      first: "Первый элемент формы",
-      second: "Второй элемент формы",
-      newInputName: "Имя поля ввода",
-      newInputType: "Тип данных:",
+      inputNameLabel: "Название",
+      inputTypeLabel: "Тип данных:",
+      inputValueLabel: "Значение",
       addLabel: "Добавить",
-      submitForm: "Отправить",
+      submitFormLabel: "Отправить",
       settingsLabel: "Настройки",
       mainFormLabel: "Форма отправки данных",
       configLabel: "Конфигуратор",
+      calculationLabel: "Результат расчёта",
       changeLocaleLabel: "Сменить язык",
-      inputPlaceholder: "Введите значение",
-      inputNameForLocale: "Имя поля ввода для языка: ",
+      inputPlaceholderLabel: "Введите значение",
+      inputNameLabelForLocaleLabel: "Имя поля ввода для языка: ",
       deleteInputLabel: "Удалить",
       emptyInputListLabel: "Здесь ничего нет.",
       goToConfigLabel: "Открыть конфигуратор, чтобы добавить новые поля ввода",
-      inputTypes: {
+      isOfflineDataAlertLabel:
+        "Вы сейчас не в сети. Вы можете продолжать работу. Все данные будут отправлены, когда подключение будет доступно",
+      inputTypeLabels: {
         text: "Текст",
         number: "Числовой",
       },

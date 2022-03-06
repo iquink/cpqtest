@@ -1,23 +1,44 @@
 <template>
-  <div class="nav">
-    <router-link class="nav-item" to="/">
-      <span>{{ $t("message.mainFormLabel") }}</span>
-    </router-link>
-    <router-link class="nav-item" to="/settings">
-      <span>
-        {{ $t("message.settingsLabel") }}
-      </span>
-    </router-link>
-    <router-link class="nav-item" to="/config">
-      <span>{{ $t("message.configLabel") }}</span>
-    </router-link>
-  </div>
+  <nav class="nav">
+    <ul>
+      <li>
+        <router-link class="nav-item" to="/">
+          <span>{{ $t("message.mainFormLabel") }}</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link class="nav-item" to="/settings">
+          <span>
+            {{ $t("message.settingsLabel") }}
+          </span>
+        </router-link>
+      </li>
+      <li>
+        <router-link class="nav-item" to="/config">
+          <span>{{ $t("message.configLabel") }}</span>
+        </router-link>
+      </li>
+      <li v-if="calculationData.length">
+        <router-link class="nav-item" to="/calculation">
+          <span>{{ $t("message.calculationLabel") }}</span>
+        </router-link>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useStore } from "vuex";
 
-export default defineComponent({});
+export default defineComponent({
+  setup() {
+    const store = useStore();
+    const calculationData = store.state.calculationData;
+
+    return { calculationData };
+  },
+});
 </script>
 
 <style lang="scss" scoped>

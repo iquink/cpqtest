@@ -4,13 +4,28 @@
   </h2>
   <div class="page-wrapper">
     <slot name="page"></slot>
+    <Alert v-if="networkStatus === 'offline'">
+      {{ $t("message.isOfflineDataAlertLabel") }}
+    </Alert>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
+import { useStore } from "vuex";
+import Alert from "@/components/Alert.vue";
 
-export default defineComponent({});
+export default defineComponent({
+  components: {
+    Alert,
+  },
+  setup() {
+    const store = useStore();
+    const networkStatus = computed(() => store.state.networkStatus);
+
+    return { networkStatus };
+  },
+});
 </script>
 
 <style lang="scss">

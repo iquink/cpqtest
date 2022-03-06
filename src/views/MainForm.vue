@@ -13,7 +13,7 @@
         >
           {{ item.names.find((name) => name.locale === $i18n.locale).value }}
         </Input>
-        <Button :type="'submit'">{{ $t("message.submitForm") }}</Button>
+        <Button :type="'submit'">{{ $t("message.submitFormLabel") }}</Button>
       </Form>
       <div v-else class="empty-inputs-list">
         <span>{{ $t("message.emptyInputListLabel") }}</span>
@@ -26,19 +26,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { computed, defineComponent, reactive } from "vue";
 import { useStore } from "vuex";
-import { saveData } from "../api";
-import Form from "../components/Form.vue";
-import Button from "../components/Button.vue";
-import PageWrapper from "../components/PageWrapper.vue";
-import Input from "../components/Input.vue";
-
-interface IFormInput {
-  id: number;
-  names: string[];
-  type: string;
-}
+import Form from "@/components/Form.vue";
+import Button from "@/components/Button.vue";
+import PageWrapper from "@/components/PageWrapper.vue";
+import Input from "@/components/Input.vue";
+import { IMainFormInput, IRequestData } from "@/store";
 
 export default defineComponent({
   components: {
@@ -49,51 +43,25 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-
-    const formInputs: IFormInput[] = store.state.mainFormInputs;
-
+    const formInputs = computed(() => store.state.mainFormInputs);
     const data = reactive(
-      formInputs.map((item: IFormInput) => ({
-        id: item.id,
-        value: "",
-      }))
+      formInputs.value.map(
+        (item: IMainFormInput) =>
+          ({
+            id: item.id,
+            value: "",
+            names: item.names,
+          } as IRequestData)
+      )
     );
-
+    const changedData = computed(() => store.state.calculationData);
     const saveFormData = (e: Event): void => {
       e.preventDefault();
-      let requestData: { [key: number]: string | number } = {};
 
-      data.forEach((item: { id: number; value: string | number }) => {
-        const value = item.value;
-
-        requestData[item.id] =
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          !isNaN(parseFloat(value)) && isFinite(value) ? Number(value) : value;
-      });
-
-      saveData(requestData)
-        .then((response) => {
-          if (response.status === 200) {
-            return response.text();
-          }
-        })
-        .then((responseData) => {
-          if (responseData) {
-            Object.keys(JSON.parse(responseData)).forEach((item) => {
-              const changedElement = data.find(
-                (elem) => elem.id === Number(item)
-              );
-
-              if (changedElement) {
-                changedElement.value = JSON.parse(responseData)[item];
-              }
-            });
-          }
-        });
+      store.dispatch("saveData", data);
     };
 
-    return { formInputs, data, saveFormData };
+    return { formInputs, data, saveFormData, changedData };
   },
 });
 </script>

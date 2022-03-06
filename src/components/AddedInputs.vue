@@ -1,9 +1,9 @@
 <template>
-  <table class="added-inputs">
+  <table class="table">
     <thead>
       <tr>
-        <td>{{ $t("message.newInputName") }}</td>
-        <td>{{ $t("message.newInputType") }}</td>
+        <td>{{ $t("message.inputNameLabel") }}</td>
+        <td>{{ $t("message.inputTypeLabel") }}</td>
       </tr>
     </thead>
     <tbody>
@@ -45,46 +45,5 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import "../scss/mixins.scss";
-
-.added-inputs {
-  width: 100%;
-  max-width: 600px;
-  margin-top: 24px;
-
-  .item-type {
-    display: flex;
-    justify-content: space-between;
-
-    button {
-      all: unset;
-      background-color: transparent;
-      color: $color-blue-1;
-      cursor: pointer;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  td {
-    padding: 16px 20px;
-  }
-
-  thead {
-    @include text-default-600;
-
-    td {
-      border: 3px solid $color-gray-stroke;
-    }
-  }
-
-  tbody {
-    @include text-default-400;
-
-    td {
-      border: 1px solid $color-gray-stroke;
-    }
-  }
-}
+@include table;
 </style>
